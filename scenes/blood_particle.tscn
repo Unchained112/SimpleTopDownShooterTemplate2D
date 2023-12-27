@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqm1wgx26c66b"]
+
+[ext_resource type="Script" path="res://scripts/blood_particle.gd" id="1_p04n2"]
+
+[sub_resource type="Curve" id="Curve_fxpbh"]
+_data = [Vector2(0.00411522, 0.703297), 0.0, 2.55907, 0, 0, Vector2(0.514403, 0.505494), -1.69121, -1.69121, 0, 0, Vector2(1, 0.538461), 2.57143, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4f4gb"]
+curve = SubResource("Curve_fxpbh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_104ls"]
+particle_flag_disable_z = true
+initial_velocity_min = 120.0
+initial_velocity_max = 169.0
+gravity = Vector3(20, 0, 0)
+tangential_accel_min = -20.0
+tangential_accel_max = 20.0
+scale_min = 5.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_4f4gb")
+
+[node name="BloodParticle" type="Node2D"]
+script = ExtResource("1_p04n2")
+
+[node name="BleedingEffect" type="GPUParticles2D" parent="."]
+modulate = Color(0.607843, 0.133333, 0.14902, 1)
+position = Vector2(8, 0)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_104ls")
+lifetime = 0.1
+one_shot = true
+
+[connection signal="finished" from="BleedingEffect" to="." method="_on_bleeding_effect_finished"]

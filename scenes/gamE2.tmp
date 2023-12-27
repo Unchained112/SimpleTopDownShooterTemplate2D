@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://bduw5gb057ino"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_5vnjt"]
+[ext_resource type="PackedScene" uid="uid://cqpatfifsn3sg" path="res://scenes/player.tscn" id="2_n47hv"]
+[ext_resource type="PackedScene" uid="uid://bdul5xkhnycti" path="res://scenes/enemy.tscn" id="3_g0v0i"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="3_l88hd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7nvpe"]
+size = Vector2(1024, 55.3125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_akqs3"]
+size = Vector2(64, 528)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_5vnjt")
+
+[node name="Background" type="Polygon2D" parent="."]
+z_index = -50
+color = Color(0, 0.0705882, 0.0980392, 1)
+polygon = PackedVector2Array(-832, -896, -832, 1408, 2176, 1408, 2176, -896)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Background"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/StaticBody2D2"]
+position = Vector2(576, 27.6563)
+shape = SubResource("RectangleShape2D_7nvpe")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Background"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/StaticBody2D"]
+position = Vector2(576, 611)
+shape = SubResource("RectangleShape2D_7nvpe")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Background"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/StaticBody2D3"]
+position = Vector2(32, 320)
+shape = SubResource("RectangleShape2D_akqs3")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Background"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/StaticBody2D4"]
+position = Vector2(1120, 320)
+shape = SubResource("RectangleShape2D_akqs3")
+
+[node name="Ground" type="Polygon2D" parent="."]
+z_index = -49
+color = Color(0.913725, 0.847059, 0.65098, 1)
+polygon = PackedVector2Array(64, 56, 64, 320, 64, 584, 1088, 584, 1088, 56)
+
+[node name="Player" parent="." instance=ExtResource("2_n47hv")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 323)
+script = ExtResource("3_l88hd")
+
+[node name="enemy" parent="." instance=ExtResource("3_g0v0i")]
+position = Vector2(800, 320)

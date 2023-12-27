@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bduw5gb057ino"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_5vnjt"]
+[ext_resource type="PackedScene" uid="uid://cqpatfifsn3sg" path="res://scenes/player.tscn" id="2_n47hv"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_5vnjt")
+
+[node name="Background" type="Polygon2D" parent="."]
+color = Color(0, 0.0705882, 0.0980392, 1)
+polygon = PackedVector2Array(0, 0, 0, 646, 1152, 648, 1152, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_n47hv")]
+speed = 200.0
+lr_flag = true
+rotate_flag = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 323)

@@ -1,0 +1,200 @@
+[gd_scene load_steps=16 format=3 uid="uid://cqpatfifsn3sg"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_sy1wy"]
+[ext_resource type="AudioStream" uid="uid://b5y5j2t81dq1l" path="res://assets/sound_effects/laserShoot.wav" id="2_qiobg"]
+
+[sub_resource type="Curve" id="Curve_5phf1"]
+_data = [Vector2(0, 0.384615), 0.0, 0.0, 0, 0, Vector2(0.320988, 0.978022), 0.0, 0.0, 0, 0, Vector2(0.460905, 0.626374), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_saytj"]
+curve = SubResource("Curve_5phf1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0nije"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(5, 1, 1)
+spread = 42.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 6.0
+scale_max = 12.0
+scale_curve = SubResource("CurveTexture_saytj")
+
+[sub_resource type="Animation" id="Animation_p6stl"]
+resource_name = "IdleL"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 0.574349, 1),
+"update": 0,
+"values": [Vector2(-1, 1), Vector2(-1, 0.9), Vector2(-1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8mdb6"]
+resource_name = "IdleR"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 0.574349, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.9), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cl5sa"]
+resource_name = "MoveL"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 0.574349, 1),
+"update": 0,
+"values": [Vector2(-1, 1), Vector2(-1, 0.7), Vector2(-1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rn48w"]
+resource_name = "MoveR"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 0.574349, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.7), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rabhh"]
+_data = {
+"IdleL": SubResource("Animation_p6stl"),
+"IdleR": SubResource("Animation_8mdb6"),
+"MoveL": SubResource("Animation_cl5sa"),
+"MoveR": SubResource("Animation_rn48w")
+}
+
+[sub_resource type="Curve" id="Curve_ul8r3"]
+_data = [Vector2(0, 0.846154), 0.0, 1.4, 0, 0, Vector2(0.604938, 0.571428), -2.52979, -2.52979, 0, 0, Vector2(1, 0.153846), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kcgkg"]
+curve = SubResource("Curve_ul8r3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_63td5"]
+particle_flag_disable_z = true
+initial_velocity_min = 120.0
+initial_velocity_max = 169.0
+gravity = Vector3(20, 0, 0)
+tangential_accel_min = -20.0
+tangential_accel_max = 20.0
+scale_min = 4.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_kcgkg")
+
+[sub_resource type="Animation" id="Animation_ung4r"]
+resource_name = "Shot"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.6, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pwo6r"]
+_data = {
+"Shot": SubResource("Animation_ung4r")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_sy1wy")
+
+[node name="CollisionBodyLR" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(16, -32, -8, -32, -24, 32, 16, 32)
+
+[node name="MovementTrailEffect" type="GPUParticles2D" parent="."]
+position = Vector2(0, 31)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_0nije")
+lifetime = 0.1
+one_shot = true
+
+[node name="BodyLR" type="Polygon2D" parent="."]
+scale = Vector2(-1, 1)
+color = Color(0.0392157, 0.576471, 0.588235, 1)
+polygon = PackedVector2Array(-16, -32, -16, 32, 24, 32, 16, 0, 8, -32)
+
+[node name="Shadow" type="Polygon2D" parent="BodyLR"]
+z_index = -48
+position = Vector2(-2, -3)
+rotation = 3.14159
+scale = Vector2(1, -1)
+color = Color(0, 0, 0, 0.376471)
+polygon = PackedVector2Array(-26, 24, -29, 32, -26, 40, 17, 40, 17, 24)
+
+[node name="BodyLRPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../BodyLR")
+libraries = {
+"": SubResource("AnimationLibrary_rabhh")
+}
+playback_default_blend_time = 0.2
+
+[node name="BodyRotate" type="Polygon2D" parent="."]
+color = Color(0.580392, 0.823529, 0.741176, 1)
+polygon = PackedVector2Array(32, 0, -24, -16, -24, 16)
+
+[node name="BulletSpawnPoint" type="Node2D" parent="BodyRotate"]
+position = Vector2(41, 0)
+
+[node name="ShootingEffect" type="GPUParticles2D" parent="BodyRotate"]
+modulate = Color(0, 0.372549, 0.45098, 1)
+position = Vector2(32, 0)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_63td5")
+lifetime = 0.1
+one_shot = true
+
+[node name="BodyRotatePlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../BodyRotate")
+libraries = {
+"": SubResource("AnimationLibrary_pwo6r")
+}
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_qiobg")
+volume_db = -12.0
+
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]

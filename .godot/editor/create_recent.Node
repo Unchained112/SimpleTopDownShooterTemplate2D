@@ -1,0 +1,14 @@
+AudioStreamPlayer
+Polygon2D
+Node2D
+AnimationTree
+Label
+CharacterBody2D
+Area2D
+AnimationPlayer
+CollisionPolygon2D
+GPUParticles2D
+Timer
+CanvasGroup
+CollisionShape2D
+StaticBody2D

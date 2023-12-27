@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://02vm5q8j6lmx"]
+
+[ext_resource type="Script" path="res://scripts/bullet_particle.gd" id="1_8lg3l"]
+
+[sub_resource type="Curve" id="Curve_wkupy"]
+_data = [Vector2(0, 0.846154), 0.0, 1.4, 0, 0, Vector2(0.604938, 0.571428), -2.52979, -2.52979, 0, 0, Vector2(1, 0.153846), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yc0y3"]
+curve = SubResource("Curve_wkupy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ia26w"]
+particle_flag_disable_z = true
+initial_velocity_min = 120.0
+initial_velocity_max = 169.0
+gravity = Vector3(20, 0, 0)
+tangential_accel_min = -20.0
+tangential_accel_max = 20.0
+scale_min = 4.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_yc0y3")
+
+[node name="BulletParticle" type="Node2D"]
+script = ExtResource("1_8lg3l")
+
+[node name="BulletEffect" type="GPUParticles2D" parent="."]
+modulate = Color(0, 0.372549, 0.45098, 1)
+position = Vector2(-8, 0)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_ia26w")
+lifetime = 0.1
+one_shot = true
+
+[connection signal="finished" from="BulletEffect" to="." method="_on_bullet_effect_finished"]

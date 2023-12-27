@@ -1,0 +1,389 @@
+[gd_scene load_steps=28 format=3 uid="uid://bdul5xkhnycti"]
+
+[ext_resource type="Shader" path="res://shader/bot_flash.gdshader" id="1_6icbm"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_cd24m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3agpq"]
+size = Vector2(32, 48)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1y4py"]
+resource_local_to_scene = true
+shader = ExtResource("1_6icbm")
+shader_parameter/poly_color = Color(0.792157, 0.403922, 0.00784314, 1)
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="Animation" id="Animation_cy6mt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageTextContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamageTextContainer:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamageTextContainer/DamageText:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DamageTextContainer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DeathMark:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DeathMark/Polygon2D:color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.682353, 0.12549, 0.0705882, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Polygon2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2h7uc"]
+resource_name = "destroy"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathMark:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathMark/Polygon2D:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.05, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.682353, 0.12549, 0.0705882, 1), Color(0.980392, 0.462745, 0.384314, 1), Color(0.682353, 0.12549, 0.0705882, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2n8t7"]
+resource_name = "get_damage"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageTextContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(20, -12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageTextContainer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Polygon2D:material:shader_parameter/flash_modifier")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamageTextContainer/DamageText:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DamageTextContainer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_3v32f"]
+resource_name = "move"
+length = 0.4
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.8), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dama0"]
+resource_name = "one_move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.8), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_enpve"]
+_data = {
+"RESET": SubResource("Animation_cy6mt"),
+"destroy": SubResource("Animation_2h7uc"),
+"get_damage": SubResource("Animation_2n8t7"),
+"move": SubResource("Animation_3v32f"),
+"one_move": SubResource("Animation_dama0")
+}
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_nupch"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hiojd"]
+animation = &"destroy"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xtfv4"]
+animation = &"get_damage"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_c8cx6"]
+graph_offset = Vector2(-573.451, 67.8821)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_nupch")
+nodes/Add2/position = Vector2(280, 120)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_xtfv4")
+nodes/Animation/position = Vector2(100, 120)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_hiojd")
+"nodes/Animation 2/position" = Vector2(100, 260)
+nodes/output/position = Vector2(440, 180)
+node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_mt0cv"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1bul0"]
+animation = &"get_damage"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_42jkq"]
+animation = &"one_move"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ofapa"]
+graph_offset = Vector2(-411, 187)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_mt0cv")
+nodes/Add2/position = Vector2(260, 160)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_42jkq")
+nodes/Animation/position = Vector2(60, 300)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_1bul0")
+"nodes/Animation 2/position" = Vector2(60, 160)
+nodes/output/position = Vector2(440, 180)
+node_connections = [&"Add2", 1, &"Animation", &"output", 0, &"Animation 2"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_djaov"]
+animation = &"move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rftbb"]
+advance_mode = 2
+
+[sub_resource type="Curve" id="Curve_65211"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(1, 0.5), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h5v5d"]
+xfade_time = 0.1
+xfade_curve = SubResource("Curve_65211")
+advance_mode = 2
+advance_condition = &"is_damaged"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l6ne3"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_juc1o"]
+advance_mode = 2
+advance_condition = &"is_destroyed"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nnt1o"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_a7ruc"]
+states/End/position = Vector2(498, 100)
+states/destroy/node = SubResource("AnimationNodeBlendTree_c8cx6")
+states/destroy/position = Vector2(330, 202)
+states/get_damage/node = SubResource("AnimationNodeBlendTree_ofapa")
+states/get_damage/position = Vector2(330, 3)
+states/move/node = SubResource("AnimationNodeAnimation_djaov")
+states/move/position = Vector2(330, 100)
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_rftbb"), "move", "get_damage", SubResource("AnimationNodeStateMachineTransition_h5v5d"), "get_damage", "move", SubResource("AnimationNodeStateMachineTransition_l6ne3"), "move", "destroy", SubResource("AnimationNodeStateMachineTransition_juc1o"), "destroy", "move", SubResource("AnimationNodeStateMachineTransition_nnt1o")]
+graph_offset = Vector2(-270, -25)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rmqfi"]
+font_color = Color(0, 0.0705882, 0.0980392, 1)
+
+[node name="enemy" type="CharacterBody2D" groups=["enemy"]]
+z_index = -2
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_cd24m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 3
+visibility_layer = 3
+shape = SubResource("RectangleShape2D_3agpq")
+
+[node name="Shadow" type="Polygon2D" parent="."]
+z_index = -46
+position = Vector2(-8, -8)
+rotation = -3.14159
+scale = Vector2(1, -1.02093)
+color = Color(0, 0, 0, 0.376471)
+polygon = PackedVector2Array(-26, 24.4875, -26, 35.262, 10, 35.262, 10, 24.4875)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_1y4py")
+color = Color(0.792157, 0.403922, 0.00784314, 1)
+polygon = PackedVector2Array(-16, -24, -16, 24, 16, 24, 16, -24)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_enpve")
+}
+tree_root = SubResource("AnimationNodeStateMachine_a7ruc")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_damaged = false
+parameters/conditions/is_destroyed = false
+parameters/destroy/Add2/add_amount = 1.0
+parameters/get_damage/Add2/add_amount = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_enpve")
+}
+
+[node name="DamageTextContainer" type="Node2D" parent="."]
+
+[node name="DamageText" type="Label" parent="DamageTextContainer"]
+offset_top = -24.0
+offset_right = 40.0
+offset_bottom = 10.0
+text = "10"
+label_settings = SubResource("LabelSettings_rmqfi")
+
+[node name="DeathMark" type="Node2D" parent="."]
+visible = false
+
+[node name="Polygon2D" type="Polygon2D" parent="DeathMark"]
+scale = Vector2(1.24572, 1.41643)
+color = Color(0.682353, 0.12549, 0.0705882, 1)
+polygon = PackedVector2Array(-19.266, -22.592, 0, -5.64801, 19.266, -22.592, 25.6879, -16.944, 6.42199, 0, 25.6879, 16.944, 19.266, 22.592, 0, 5.64801, -19.266, 22.592, -25.6879, 16.944, -6.42199, 0, -25.6879, -16.944)
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]

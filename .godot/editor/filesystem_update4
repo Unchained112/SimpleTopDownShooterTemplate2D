@@ -1,0 +1,6 @@
+res://scenes/game.tscn
+res://shader/bot_flash.gdshader
+res://scenes/player.tscn
+res://scenes/bullet.tscn
+res://scenes/enemy.tscn
+res://scenes/bullet_hit_sound.tscn
