@@ -111,10 +111,34 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("DeathMark/Polygon2D:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.24572, 1.41643)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("DeathMark/Polygon2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_2h7uc"]
 resource_name = "destroy"
-length = 0.2
+length = 0.35
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -123,7 +147,7 @@ tracks/0/path = NodePath("DeathMark:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.15, 0.2),
+"times": PackedFloat32Array(0, 0.15, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false]
@@ -135,10 +159,34 @@ tracks/1/path = NodePath("DeathMark/Polygon2D:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.05, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0.05, 0.15, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(0.682353, 0.12549, 0.0705882, 1), Color(0.980392, 0.462745, 0.384314, 1), Color(0.682353, 0.12549, 0.0705882, 1)]
+"values": [Color(0.682353, 0.12549, 0.0705882, 1), Color(0.682353, 0.12549, 0.0705882, 1), Color(0.980392, 0.462745, 0.384314, 1), Color(0.682353, 0.12549, 0.0705882, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathMark/Polygon2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2, 2.273), Vector2(0.6, 0.682)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathMark/Polygon2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(15, -10), Vector2(-5, 10), Vector2(-6, -3), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_2n8t7"]
@@ -257,7 +305,7 @@ animation = &"destroy"
 animation = &"get_damage"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_c8cx6"]
-graph_offset = Vector2(-573.451, 67.8821)
+graph_offset = Vector2(-421.24, 114.944)
 nodes/Add2/node = SubResource("AnimationNodeAdd2_nupch")
 nodes/Add2/position = Vector2(280, 120)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_xtfv4")
@@ -276,7 +324,7 @@ animation = &"get_damage"
 animation = &"one_move"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ofapa"]
-graph_offset = Vector2(-411, 187)
+graph_offset = Vector2(-362.108, 162.512)
 nodes/Add2/node = SubResource("AnimationNodeAdd2_mt0cv")
 nodes/Add2/position = Vector2(260, 160)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_42jkq")
@@ -304,7 +352,6 @@ advance_condition = &"is_damaged"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l6ne3"]
 switch_mode = 2
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_juc1o"]
 advance_mode = 2
@@ -312,7 +359,6 @@ advance_condition = &"is_destroyed"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nnt1o"]
 switch_mode = 2
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_a7ruc"]
 states/End/position = Vector2(498, 100)
@@ -323,7 +369,7 @@ states/get_damage/position = Vector2(330, 3)
 states/move/node = SubResource("AnimationNodeAnimation_djaov")
 states/move/position = Vector2(330, 100)
 transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_rftbb"), "move", "get_damage", SubResource("AnimationNodeStateMachineTransition_h5v5d"), "get_damage", "move", SubResource("AnimationNodeStateMachineTransition_l6ne3"), "move", "destroy", SubResource("AnimationNodeStateMachineTransition_juc1o"), "destroy", "move", SubResource("AnimationNodeStateMachineTransition_nnt1o")]
-graph_offset = Vector2(-270, -25)
+graph_offset = Vector2(-340, 36)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rmqfi"]
 font_color = Color(0, 0.0705882, 0.0980392, 1)
@@ -387,3 +433,4 @@ color = Color(0.682353, 0.12549, 0.0705882, 1)
 polygon = PackedVector2Array(-19.266, -22.592, 0, -5.64801, 19.266, -22.592, 25.6879, -16.944, 6.42199, 0, 25.6879, 16.944, 19.266, 22.592, 0, 5.64801, -19.266, 22.592, -25.6879, 16.944, -6.42199, 0, -25.6879, -16.944)
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

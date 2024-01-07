@@ -12,6 +12,7 @@ var push_timer: float = 0.0
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var damage_text: Label = $DamageTextContainer/DamageText
+@onready var anime_state_machine = animation_tree["parameters/playback"]
 @onready var blood_particle = preload("res://scenes/blood_particle.tscn")
 
 func _ready():
@@ -55,9 +56,15 @@ func push_back(delta: float):
 	else:
 		push_timer = 0.0
 
-func _on_animation_tree_animation_finished(anim_name):
-	if anim_name == "get_damage":
+func _on_animation_tree_animation_finished(_anim_name):
+	if anime_state_machine.get_current_node() == "get_damage":
+		anime_state_machine.travel("move")
 		animation_tree['parameters/conditions/is_damaged'] = false
-	elif anim_name == "destroy":
+	elif anime_state_machine.get_current_node() == "destroy":
 		animation_tree['parameters/conditions/is_destroyed'] = false
 		destroy()
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "destroy":
+		#animation_tree['parameters/conditions/is_destroyed'] = false
+		pass

@@ -3,6 +3,7 @@ extends Node2D
 @export var noise_shake_speed: float = 15.0
 @export var noise_shake_strength: float = 16.0
 @export var shake_decay_rate: float = 20.0
+@export var enable_camera_slow_motion: bool = true
 
 var start_pos: Vector2
 var enemy_list: Array = []
@@ -14,6 +15,7 @@ var shake_strength: float = 0.0
 @onready var player: CharacterBody2D = $Player
 @onready var noise = FastNoiseLite.new()
 @onready var rand = RandomNumberGenerator.new()
+@onready var slow_mo_timer: Timer = $CameraSlowMoTimer
 
 func _ready():
 	var screen_size = get_viewport_rect().size
@@ -29,7 +31,7 @@ func _process(delta: float):
 		var n = randi_range(1, 3)
 		for i in range(0, n):
 			var enemy = enemy_class.instantiate()
-			enemy.connect("enemy_destroyed", on_enemy_destroyed)
+			enemy.connect("enemy_destroyed", _on_enemy_destroyed)
 			var pos = Vector2(randf_range(100, 1000), randf_range(150, 500))
 			enemy.setup(pos, player)
 			get_tree().root.add_child(enemy)
@@ -59,6 +61,20 @@ func get_random_offset() -> Vector2:
 		rand.randf_range(-shake_strength, shake_strength)
 	)
 
-func on_enemy_destroyed(enemy):
+func start_slow_motion(scale: float = 0.5):
+	if enable_camera_slow_motion:
+		Engine.time_scale = scale
+		slow_mo_timer.start()
+		AudioServer.playback_speed_scale = scale
+
+func stop_slow_motion():
+	Engine.time_scale = 1.0
+	AudioServer.playback_speed_scale = 1.0
+
+func _on_enemy_destroyed(enemy):
+	start_slow_motion(0.6)
 	shake_strength = noise_shake_strength
 	enemy_list.erase(enemy)
+
+func _on_camera_slow_mo_timer_timeout():
+	stop_slow_motion()

@@ -59,3 +59,9 @@ polygon = PackedVector2Array(64, 56, 64, 320, 64, 584, 1088, 584, 1088, 56)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 323)
+
+[node name="CameraSlowMoTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="CameraSlowMoTimer" to="." method="_on_camera_slow_mo_timer_timeout"]
