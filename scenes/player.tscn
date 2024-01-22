@@ -1,26 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cqpatfifsn3sg"]
+[gd_scene load_steps=14 format=3 uid="uid://cqpatfifsn3sg"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sy1wy"]
 [ext_resource type="AudioStream" uid="uid://b5y5j2t81dq1l" path="res://assets/sound_effects/laserShoot.wav" id="2_qiobg"]
-
-[sub_resource type="Curve" id="Curve_5phf1"]
-_data = [Vector2(0, 0.384615), 0.0, 0.0, 0, 0, Vector2(0.320988, 0.978022), 0.0, 0.0, 0, 0, Vector2(0.460905, 0.626374), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_saytj"]
-curve = SubResource("Curve_5phf1")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0nije"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(5, 1, 1)
-spread = 42.0
-initial_velocity_min = 5.0
-initial_velocity_max = 10.0
-gravity = Vector3(0, 0, 0)
-scale_min = 6.0
-scale_max = 12.0
-scale_curve = SubResource("CurveTexture_saytj")
+[ext_resource type="Material" uid="uid://bcuo1xumj4tyr" path="res://assets/player_move_trail.tres" id="2_vodir"]
 
 [sub_resource type="Animation" id="Animation_p6stl"]
 resource_name = "IdleL"
@@ -143,7 +125,7 @@ polygon = PackedVector2Array(16, -32, -8, -32, -24, 32, 16, 32)
 position = Vector2(0, 31)
 emitting = false
 amount = 10
-process_material = SubResource("ParticleProcessMaterial_0nije")
+process_material = ExtResource("2_vodir")
 lifetime = 0.1
 one_shot = true
 
